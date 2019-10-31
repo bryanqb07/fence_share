@@ -13,5 +13,13 @@ mongoose
     .then(() => console.log("Connected to MongoDB successfully"))
     .catch(err => console.log(err));
 
+const users = require("./routes/api/users");
+const purchases = require("./routes/api/purchases");
+app.use("/api/users", users);
+app.use("/api/purchases", purchases);
+
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
