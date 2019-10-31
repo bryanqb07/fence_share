@@ -4,16 +4,26 @@ const bcrypt = require("bcryptjs");
 const User = require("../../models/user");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-
-
+const passport = require("passport");
+const validateLoginInput = require("../../validations/login");
+const validateRegisterInput = require("../../validations/registration");
 
 router.get("/test", (req, res) => res.json({msg: "This is the user's route."}))
+
+router.get("/current", passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({
+        id: req.user.id,
+        companyName: req.user.companyName,
+        email: req.user.email
+    })
+})
 
 router.post('/register', (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
     }
+
     // Check to make sure nobody has already registered with a duplicate email
     User.findOne({ email: req.body.email })
         .then(user => {
@@ -24,14 +34,9 @@ router.post('/register', (req, res) => {
             } else {
                 // Otherwise create a new user
                 const newUser = new User({
-                    username: req.body.username,
                     email: req.body.email,
                     password: req.body.password,
-                    addressLineOne: req.body.address.addressLineOne,
-                    addressLineTwo: req.body.address.addressLineTwo,
-                    city: req.body.address.city,
-                    state: req.body.address.state,
-                    zipcode: req.body.address.zipcode
+                    companyName: req.body.companyName,
                 })
 
                 bcrypt.genSalt(10, (err, salt) => {
@@ -40,7 +45,7 @@ router.post('/register', (req, res) => {
                         newUser.password = hash;
                         newUser.save()
                             .then(user => {
-                                const payload = { id: user.id, username: user.username };
+                                const payload = { id: user.id, email: user.email, companyName: user.companyName };
 
                                 jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                                     res.json({
@@ -75,7 +80,7 @@ router.post("/login", (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if (isMatch){
-                        const payload = {id: user.id, username: user.username}
+                        const payload = { id: user.id, email: user.email, companyName: user.companyName }
                         jwt.sign(
                             payload,
                             keys.secretOrKey,
