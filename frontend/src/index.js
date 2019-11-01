@@ -8,6 +8,36 @@ import jwt_decode from 'jwt-decode';
 // The session utility we just created
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
+import './styles/main.scss'
+
+// Window testing
+import { fetchProducts, fetchProduct, postProduct } from './util/product_api_util';
+import { getProduct, getProducts, createProduct, destroyProduct } from './actions/product_actions';
+window.getProduct = getProduct;
+window.getProducts = getProducts;
+window.createProduct = createProduct;
+window.destroyProduct = destroyProduct;
+
+window.postProduct = postProduct;
+window.fetchProducts = fetchProducts;
+window.fetchProduct = fetchProduct;
+window.testProduct = {
+    title: "Test Product3",
+    description: "This is a test product3",
+    code: "ABC",
+    width: 100,
+    height: 100,
+    per_unit: 5,
+    per_ft_install_fee: 1,
+    flat_install_fee: 150,
+    sq_ft_0: 5,
+    sq_ft_1: 6,
+    sq_ft_2: 7,
+    sq_ft_3: 8,
+    imgString: "example.jpg"
+}
+
+////
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -38,6 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // If this is a first time user, start with an empty store
         store = configureStore({});
     }
+    // WINDOW TESTING
+    window.getState = store.getState;
+    window.dispatch = store.dispatch;
+    //
+
     // Render our root component and pass in the store as a prop
     const root = document.getElementById('root');
 

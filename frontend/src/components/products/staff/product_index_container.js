@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getProducts, getProduct, createProduct, updateProduct, destroyProduct } from '../../../actions/product_actions';
-import ProductForm from './product_form';
+import ProductsIndex from './product_index';
 
 const mapStateToProps = (state) => ({
     errors: state.errors.products,
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getProducts: () => dispatch(getProducts()),
     getProduct: product_id => dispatch(getProduct(product_id)),
-    updateProduct: product => dispatch(updateProduct(product)),
+    // updateProduct: product => dispatch(updateProduct(product)),
     createProduct: product => dispatch(createProduct(product)),
     destroyProduct: product_id => dispatch(destroyProduct(product_id))
 })
@@ -18,4 +18,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductForm);
+)(ProductsIndex);

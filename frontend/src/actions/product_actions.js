@@ -1,4 +1,4 @@
-// import * as APIUtil from '../util/action_api_util';
+import * as APIUtil from '../util/product_api_util';
 
 export const RECEIVE_PRODUCT = "RECEIVE_PRODUCT";
 export const RECEIVE_PRODUCTS = "RECEIVE_PRODUCTS";
@@ -28,18 +28,37 @@ export const receiveErrors = errors => ({
     errors
 });
 
-export const createProduct = product => ({
-    product
-})
+export const getProduct = product_id => dispatch => (
+    APIUtil.fetchProduct(product_id).then((product) => (
+        dispatch(receiveProduct(product))
+    ), err => (
+        dispatch(receiveErrors(err.response.data))
+    ))
+);
 
-// Upon signup, dispatch the approporiate action depending on which type of response we receieve from the backend
-// export const signup = user => dispatch => (
-//     APIUtil.signup(user).then(() => (
-//         dispatch(receiveUserSignIn())
-//     ), err => (
-//         dispatch(receiveErrors(err.response.data))
-//     ))
-// );
+export const getProducts = () => dispatch => (
+    APIUtil.fetchProducts().then((products) => (
+        dispatch(receiveProducts(products))
+    ), err => (
+        dispatch(receiveErrors(err.response.data))
+    ))
+);
+
+export const createProduct = product => dispatch => (
+    APIUtil.postProduct(product).then((newProduct) => (
+        dispatch(receiveProduct(newProduct))
+    ), err => (
+        dispatch(receiveErrors(err.response.data))
+    ))
+);
+
+export const destroyProduct = product_id => dispatch => (
+    APIUtil.deleteProduct(product_id).then((product_id) => (
+        dispatch(deleteProduct(product_id))
+    ), err => (
+        dispatch(receiveErrors(err.response.data))
+    ))
+);
 
 // // Upon login, set the session token and dispatch the current user. Dispatch errors on failure.
 // export const login = user => dispatch => (

@@ -10,6 +10,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 app.use(passport.initialize())
+require('./config/passport')(passport);
+
 app.listen(port, () => console.log(`Server is running on port ${port}`))
 
 mongoose

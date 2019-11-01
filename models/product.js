@@ -12,7 +12,6 @@ const ProductSchema = new Schema({
     },
     code: {
         type: String,
-        unique: true,
         required: true
     },
     dimensions: {
@@ -32,7 +31,7 @@ const ProductSchema = new Schema({
             type: Number,
             required: true
          },
-        sq_ft_over_time: {
+        sq_ft_per_unit_time: {
             0: { // 0-3 months
                 type: Number,
                 required: true

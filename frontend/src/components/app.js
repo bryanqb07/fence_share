@@ -12,13 +12,12 @@ import SideBar from './sidebar/sidebar'
 const App = () => (
     <div>
         <NavBarContainer />
-        <AuthRoute path="/staff" component={SideBar} />
         <Switch>
-            <AuthRoute exact path="/" component={MainPage} />
+            <Route exact path="/" component={MainPage} />
             <AuthRoute exact path="/users/login" component={LoginFormContainer} />
             <AuthRoute exact path="/signup" component={SignupFormContainer} />
             <AuthRoute exact path="/staff/login" component={LoginFormContainer} />
-            <AuthRoute exact path="/staff/products/new" component={ProductFormContainer} />
+            <ProtectedRoute exact path="/staff/products/new" component={ProductFormContainer} />
         </Switch>
     </div>
 

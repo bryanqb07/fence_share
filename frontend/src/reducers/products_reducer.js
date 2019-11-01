@@ -1,4 +1,4 @@
-import { merge } from 'lodash.merge';
+// import { merge } from 'lodash.merge';
 
 import {
     RECEIVE_PRODUCT,
@@ -8,11 +8,13 @@ import {
 
 export default (state = {}, action) => {
     Object.freeze(state);
+    let newState = Object.assign({}, state);
     switch (action.type) {
         case RECEIVE_PRODUCT:
-            return merge({}, state, { [action.product.id]: action.product });
+            newState[action.product.data._id] = action.product.data
+            return newState
         case RECEIVE_PRODUCTS:
-            return action.products;
+            return action.products.data;
         default:
             return state;
     }

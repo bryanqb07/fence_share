@@ -41,30 +41,6 @@ class ProductForm extends React.Component {
         this.setState({ errors: nextProps.errors })
     }
 
-    formatState() {
-        return {
-                title: this.state.title,
-                description: this.state.description,
-                code: this.state.code,
-                dimensions: {
-                    width: this.state.width,
-                    height: this.state.height
-                },
-                price: {
-                    per_unit: this.state.per_unit,
-                    per_ft_install_fee: this.state.per_ft_install_fee,
-                    flat_install_fee: this.state.flat_install_fee,
-                    sq_ft_over_time: {
-                        0: this.state.sq_ft_0,
-                        1: this.state.sq_ft_1,
-                        2: this.state.sq_ft_2,
-                        3: this.state.sq_ft_3
-                    }
-                },
-                imgString: this.state.imgString,
-        }
-    }
-
     // Handle field updates (called in the render method)
     update(field) {
         return e => this.setState({
@@ -75,8 +51,7 @@ class ProductForm extends React.Component {
     // Handle form submission
     handleSubmit(e) {
         e.preventDefault();
-        const formattedState = this.formatState().bind(this);
-        this.props.createProduct(formattedState);
+        this.props.createProduct(this.state);
     }
 
     // Render the session errors if there are any
@@ -141,32 +116,33 @@ class ProductForm extends React.Component {
                         <br />
                         <h3>Pricing</h3>
                         <div className=".flex">
-                            <label>Price Per Unit</label>
+                            <label className="currency-input">Price Per Unit $</label>
                             <input type="number"
                                 value={this.state.per_unit}
-                                onChange={this.update('price.per_unit')}
+                                onChange={this.update('per_unit')}
                                 placeholder="0.0"
+                                step="0.50"
                             />
                         </div>
                         <br />
                         <div className=".flex">
-                        <label>Price Per Sq Ft Installation Fee</label>
+                        <label className="currency-input">Price Per Sq Ft Installation Fee $</label>
                         <input type="number"
                             value={this.state.per_ft_install_fee}
-                            onChange={this.update('price.per_ft_install_fee')}
+                            onChange={this.update('per_ft_install_fee')}
                             placeholder="0.0" />
                         </div>
                         <br />
                         <div className=".flex">
-                            <label>Flat Installation Fee</label>
+                            <label className="currency-input">Flat Installation Fee $</label>
                             <input type="number"
                                 value={this.state.flat_install_fee}
-                                onChange={this.update('price.flat_install_fee')}
+                                onChange={this.update('flat_install_fee')}
                                 placeholder="0.0" />
                         </div>
                         <br />
                         <div className=".flex">
-                            <label>Price per Sq Ft. 0-3 Months Rental</label>
+                            <label className="currency-input">Price per Sq Ft. 0-3 Months Rental $</label>
                             <input type="number"
                                 value={this.state.sq_ft_0}
                                 onChange={this.update('sq_ft_0')}
@@ -174,7 +150,7 @@ class ProductForm extends React.Component {
                         </div>
                         <br />
                         <div className=".flex">
-                            <label>Price per Sq Ft. 3-6 Months Rental</label>
+                            <label className="currency-input">Price per Sq Ft. 3-6 Months Rental $</label>
                             <input type="number"
                                 value={this.state.sq_ft_1}
                                 onChange={this.update('sq_ft_1')}
@@ -182,7 +158,7 @@ class ProductForm extends React.Component {
                         </div>
                         <br />
                         <div className=".flex">
-                        <label>Price per Sq Ft. 6-9 Months Rental</label>
+                        <label className="currency-input">Price per Sq Ft. 6-9 Months Rental $</label>
                         <input type="number"
                             value={this.state.sq_ft_2}
                             onChange={this.update('sq_ft_2')}
@@ -191,7 +167,7 @@ class ProductForm extends React.Component {
                         <br />
                                 
                         <div className=".flex">
-                            <label>Price per Sq Ft. 9-12 Months Rental</label>
+                            <label className="currency-input">Price per Sq Ft. 9-12 Months Rental $</label>
                             <input type="number"
                                 value={this.state.sq_ft_3}
                                 onChange={this.update('sq_ft_3')}
@@ -202,7 +178,7 @@ class ProductForm extends React.Component {
                             <label>Upload Image</label>
                             <input type="file"
                                 value={this.state.imgString}
-                                onChange={this.update('imgString')}
+                                onChange={this.update('imgString')} className="currency-input"
                             />
                         </div>
                         <br />
