@@ -60,9 +60,12 @@ router.post('/',
                                 3: req.body.sq_ft_3,  // 9-12 months
                             }
                         },
-                        imgString: req.body.imgString
+                        imgString: req.body.imgString,
+                        category: req.body.category
                     });
-                    newProduct.save( (err, newProduct) => res.json(newProduct));
+                    newProduct.save()
+                        .then(product => res.json(product))
+                        .catch(err => res.status(404).json(err))
                 }
             })
     }

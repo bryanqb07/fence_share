@@ -34,7 +34,8 @@ window.testProduct = {
     sq_ft_1: 6,
     sq_ft_2: 7,
     sq_ft_3: 8,
-    imgString: "example.jpg"
+    imgString: "example.jpg",
+    category: "Fence"
 }
 
 ////
