@@ -14,7 +14,8 @@ export default (state = {}, action) => {
             newState[action.product.data._id] = action.product.data
             return newState
         case RECEIVE_PRODUCTS:
-            return action.products.data;
+            action.products.data.map(product => newState[product._id] = product);
+            return newState;
         default:
             return state;
     }

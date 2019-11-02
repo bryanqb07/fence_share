@@ -1,25 +1,24 @@
 import React from 'react';
-import ProductDetail from './product_detail';
 
-class ProductsIndex extends React.Component {
+class ProductView extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount() {
-        this.props.getProduct();
+    componentDidMount(){
+        this.props.getProduct(this.props.match.params.id);
     }
 
     render() {
         const product = this.props.product;
-        // if(products){
-        return (
+        return product ? (
             <div>
-                
+                <img src="testFence.png"/>
+                <p>Title: {product.title}</p>
+                <p>Description: {product.description}</p>
             </div>
-        )
-
+        ) : <div className="loader">Loading...</div>
     }
 }
 
-export default ProductsIndex;
+export default ProductView;

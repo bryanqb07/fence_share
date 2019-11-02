@@ -12,12 +12,12 @@ class ProductsIndex extends React.Component {
 
     render() {
         const products = this.props.products;
-        return products.length > 0 ? (
+        return Object.keys(products).length > 0 ? (
 
             <div className="product-grid product-grid--flexbox">
                 <div className="product-grid__wrapper">
-                    {products.map(product =>
-                        <ProductDetail product={product} key={product._id} />)
+                    {Object.keys(products).map(product_key =>
+                        <ProductDetail product={products[product_key]} key={product_key} />)
                     }
                 </div>
             </div>) : <div className="loader">No products available</div>      
