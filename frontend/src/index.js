@@ -11,13 +11,13 @@ import { logout } from './actions/session_actions';
 import './styles/main.scss'
 
 // Window testing
-import { fetchProducts, fetchProduct, postProduct } from './util/product_api_util';
+import { fetchProducts, fetchProduct, postProduct, deleteProduct } from './util/product_api_util';
 import { getProduct, getProducts, createProduct, destroyProduct } from './actions/product_actions';
 window.getProduct = getProduct;
 window.getProducts = getProducts;
 window.createProduct = createProduct;
 window.destroyProduct = destroyProduct;
-
+window.deleteProduct = deleteProduct;
 window.postProduct = postProduct;
 window.fetchProducts = fetchProducts;
 window.fetchProduct = fetchProduct;

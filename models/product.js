@@ -14,6 +14,10 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
+    category: {
+        type: String,
+        required: true,
+    },
     dimensions: {
         width: { type: Number },
         height: { type: Number }

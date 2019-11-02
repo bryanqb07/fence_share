@@ -6,6 +6,8 @@ const db = require('./config/keys').mongoURI;
 const users = require("./routes/api/users");
 const orders = require("./routes/api/orders");
 const products = require("./routes/api/products");
+// const categories = require("./routes/api/categories");
+const carts = require("./routes/api/carts");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
@@ -25,3 +27,5 @@ app.use(bodyParser.json());
 app.use("/api/users", users);
 app.use("/api/orders", orders);
 app.use("/api/products", products);
+// app.use('/api/categories', categories);
+app.use('/api/carts', carts);

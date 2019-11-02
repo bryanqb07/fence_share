@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     Order.find()
         .sort({ date: -1 })
         .then(orders => res.json(orders))
-        .catch(err => res.status(404).json({ noproducts: 'No products found' }));
+        .catch(err => res.status(404).json({ noproducts: 'No orders found' }));
 });
 
 router.get('/user/:user_id', (req, res) => {
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
     Order.findById(req.params.id)
         .then(order => res.json(order))
         .catch(err =>
-            res.status(404).json({ notweetfound: 'No tweet found with that ID' })
+            res.status(404).json({ noorderfound: 'No order found with that ID' })
         );
 });
 

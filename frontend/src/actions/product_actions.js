@@ -18,9 +18,9 @@ export const receiveProducts = products => ({
     products
 });
 
-export const deleteProduct = product_id => ({
-    type: RECEIVE_PRODUCTS,
-    product_id
+export const deleteProduct = product => ({
+    type: DELETE_PRODUCT,
+    product
 });
 
 export const receiveErrors = errors => ({

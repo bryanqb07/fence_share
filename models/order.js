@@ -95,10 +95,17 @@ const OrderSchema = new Schema({
             required: true
         }
     },
-    invoiceNumber: {
-        type: String,
-        required: true
+    payment: {
+        method: { 
+            type: String,
+            required: true
+        },
+        invoiceNumber: {
+            type: String,
+            required: true
+        }
     },
+
     insured: {
         type: Boolean,
         required: true

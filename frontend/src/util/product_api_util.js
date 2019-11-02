@@ -5,7 +5,7 @@ export const postProduct = product => {
 };
 
 export const fetchProduct = product_id => {
-    return axios.get(`/api/products/${product_id}`, product_id);
+    return axios.get(`/api/products/${product_id}`);
 };
 
 export const fetchProducts = () => {
@@ -13,5 +13,5 @@ export const fetchProducts = () => {
 };
 
 export const deleteProduct = product_id => {
-    return axios.get(`/api/products/${product_id}`, product_id);
+    return axios.post('/api/products/delete', {product_id});
 };
