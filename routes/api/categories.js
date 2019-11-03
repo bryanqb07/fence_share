@@ -2,10 +2,15 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
-const Category = mongoose.models.categories;
+// const Category = mongoose.models.categories;
+const Category = require('../../models/category');
 const Product = mongoose.models.products;
-console.log(mongoose.models)
+// console.log(mongoose.models)
+// console.log(Category)
+// console.log(Product)
 const validateCategoryInput = require('../../validations/category');
+
+// Categories
 
 router.get('/', (req, res) => {
     Category.find()
@@ -15,9 +20,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Category.findOne({ _id: req.body.id })
+    Category.findById(req.params.id)
         .then(selectedCategory => {
-            Product.find({category: selectedCategory.title})
+            Product.find({ category: selectedCategory.title })
                 .then(products => res.json(products))
                 .catch(err =>
                     res.status(404).json({ noproductfound: 'No product found with that ID' })
@@ -43,14 +48,16 @@ router.post('/',
                     return res.status(400).json(errors)
                 } else {
                     const newCategory = new Category({ title: req.body.title })
-                    newCategory.save((err, newCategory) => res.json(newCategory));
+                    newCategory.save()
+                        .then(newCategory => res.json(newCategory))
+                        .catch(err => res.status(400).json(err))
                 }
             })
     }
 );
 
 router.post('/update', (req, res) => {
-    Category.findOneAndUpdate({ _id: req.body.id }, { title: req.body.title })
+    Category.findByIdAndUpdate(req.body.id, { title: req.body.title })
         .then(category => res.json(category))
         .catch(err => res.status(404).json({ nocategories: 'No category found' }));
 });
@@ -58,16 +65,16 @@ router.post('/update', (req, res) => {
 router.post('/delete', (req, res) => {
     const id = req.body.id
     const title = req.body.title
-    Category.findOneAndDelete({ _id: id })
-        .then(category => { // after category is deleted, change product categories to unknown
+    Category.findByIdAndDelete(id)
+        .then(() => { // after category is deleted, change product categories to unknown
             Product.find({ category: title })
                 .then(products => {
                     products.forEach(product => {
-                        product.update({ category: "unknown"})
+                        product.update({ category: "unknown" })
                     })
+                    return res.json({ category_id: id })
                 })
         })
         .catch(err => res.status(404).json({ nocategories: 'No categories found' }));
 });
-
 module.exports = router;

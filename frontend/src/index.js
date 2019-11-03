@@ -13,6 +13,8 @@ import './styles/main.scss'
 // Window testing
 import { fetchProducts, fetchProduct, postProduct, deleteProduct } from './util/product_api_util';
 import { getProduct, getProducts, createProduct, destroyProduct } from './actions/product_actions';
+import { getCategory, getCategories, createCategory, destroyCategory } from './actions/category_actions';
+import { fetchCategories, fetchCategory, postCategory, deleteCategory } from './util/categories_api_util';
 window.getProduct = getProduct;
 window.getProducts = getProducts;
 window.createProduct = createProduct;
@@ -21,6 +23,16 @@ window.deleteProduct = deleteProduct;
 window.postProduct = postProduct;
 window.fetchProducts = fetchProducts;
 window.fetchProduct = fetchProduct;
+
+window.deleteCategory = deleteCategory;
+window.postCategory = postCategory;
+window.fetchCategories = fetchCategories;
+window.fetchCategory = fetchCategory;
+window.getCategory = getCategory;
+window.getCategories = getCategories;
+window.createCategory = createCategory;
+window.destroyCategory = destroyCategory;
+
 window.testProduct = {
     title: "Test Product3",
     description: "This is a test product3",
@@ -36,6 +48,10 @@ window.testProduct = {
     sq_ft_3: 8,
     imgString: "example.jpg",
     category: "Fence"
+}
+
+window.testCategory = {
+    title: "Test2"
 }
 
 ////

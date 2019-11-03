@@ -96,15 +96,16 @@ router.get('/categories', (req, res) => {
 });
 
 router.get('/categories/:id', (req, res) => {
-    Category.findById(req.params.id)
-        .then(selectedCategory => {
-            Product.find({ category: selectedCategory.title })
-                .then(products => res.json(products))
-                .catch(err =>
-                    res.status(404).json({ noproductfound: 'No product found with that ID' })
-                );
-        })
-        .catch(err => res.status(404).json({ nocategories: 'No category found' }));
+    return res.json({msg: "ping"})
+    // Category.findById(req.params.id)
+    //     .then(selectedCategory => {
+    //         Product.find({ category: selectedCategory.title })
+    //             .then(products => res.json(products))
+    //             .catch(err =>
+    //                 res.status(404).json({ noproductfound: 'No product found with that ID' })
+    //             );
+    //     })
+    //     .catch(err => res.status(404).json({ nocategories: 'No category found' }));
 });
 
 router.post('/categories',
@@ -140,7 +141,7 @@ router.post('categories/delete', (req, res) => {
     const id = req.body.id
     const title = req.body.title
     Category.findByIdAndDelete(id)
-        .then(category => { // after category is deleted, change product categories to unknown
+        .then( () => { // after category is deleted, change product categories to unknown
             Product.find({ category: title })
                 .then(products => {
                     products.forEach(product => {
